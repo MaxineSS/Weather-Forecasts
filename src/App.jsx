@@ -1,28 +1,31 @@
 import React from 'react';
 import { RecoilRoot } from 'recoil';
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Search from './Search.jsx'
-import List from './List.jsx'
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <RecoilRoot>
-      <Container>
-        <Grid container direction="column" justifyContent="center" alignItems="center">
-          <Grid item xs={12}>
-            <div>
-            forecast
-            </div>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <Container>
+          <Grid container direction="column" justifyContent="center" alignItems="center">
+            <Grid item xs={12}>
+              <div>
+              forecast
+              </div>
+            </Grid>
+            <Grid item xs={12}>
+              <Search />
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Search />
-          </Grid>
-          <Grid item xs={12}>
-            <List />
-          </Grid>
-        </Grid>
-      </Container>
-    </RecoilRoot>
+        </Container>
+        <ReactQueryDevtools initialIsOpen />
+      </RecoilRoot>
+    </QueryClientProvider>
   )
 }
