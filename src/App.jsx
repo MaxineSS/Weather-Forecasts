@@ -1,22 +1,15 @@
 import React from 'react';
-import { atom, RecoilRoot } from 'recoil';
-import { useQuery } from 'react-query';
+import { RecoilRoot } from 'recoil';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Search from './Search.jsx'
 import List from './List.jsx'
 
-
-const id = atom({
-  key: `items${id}`,
-  default: []
-})
-
 export default function App() {
   return (
     <RecoilRoot>
       <Container>
-        <Grid container direction="column" justifyContent="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid item xs={12}>
             <div>
             forecast
