@@ -45,6 +45,7 @@ export default function App() {
               rowSpacing={3}>
             <Grid item xs={12}>
                 <Typography
+                  align="center"
                   variant="h2"
                   component="div"
                   gutterBottom
