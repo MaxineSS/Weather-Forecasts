@@ -1,10 +1,11 @@
 import { atom } from 'recoil';
 
-export const locationState = atom({
+export const location = atom({
   key: 'location',
   default: {
     key: '',
     city: '',
-    state: ''
+    state: '',
+    zip: ''
   }
 });

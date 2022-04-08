@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useQuery } from 'react-query';
-import { locationState } from './atoms.js';
-import { formatData } from './helper.js';
+import { location as locationAtom } from './atoms.js';
+import API_KEY from '../config.js';
+import Day from './Day.jsx';
+import Location from './Location.jsx';
 import sampledata from '../sampleData.js';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import API_KEY from '../config.js';
-import Day from './Day.jsx';
-
-// TODO: Create a component with a text box that accepts a zip code
 
 export default function Search() {
   const [zipcode, setZipcode] = useState('');
-  const [locationKey, setLocationKey] = useRecoilState(locationState);
+  const [locationKey, setLocationKey] = useRecoilState(locationAtom);
 
   const handleInputChange = (e) => {
     setZipcode(e.target.value);
@@ -29,7 +27,8 @@ export default function Search() {
     try {
       const res1 = await fetch(`${url}${location}`);
       const key = await res1.json();
-      setLocationKey(Object.assign({}, { key: key[0].Key, city: key[0].LocalizedName, state: key[0].AdministrativeArea.LocalizedName }))
+      setLocationKey(Object.assign({},
+        { key: key[0].Key, city: key[0].LocalizedName, state: key[0].AdministrativeArea.LocalizedName, zip: zipcode }))
       try {
         const res2 = await fetch(`${url}${forecast}${key[0].Key}?apikey=${API_KEY}`);
         const list = await res2.json()
@@ -38,7 +37,7 @@ export default function Search() {
         console.log(error)
       }
     } finally {
-      console.log('finished fetching')
+      console.log('Finished fetching')
     }
   }
   const { data, status } = useQuery('forecasts', fetchForecast, {
@@ -48,15 +47,17 @@ export default function Search() {
   return (
     <>
       <Container>
-        <Grid container direction="column" justifyContent="center" alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center" rowSpacing={3}>
           <Grid item>
             <TextField
+              value={zipcode}
+              size="small"
               label="Search with Zip Code"
               variant="outlined"
               onChange={handleInputChange}
+              sx={{ width: 300 }}
             />
-          </Grid>
-          <Grid item>
+            <span>    </span>
             <Button
               type="submit"
               variant="contained"
@@ -65,47 +66,24 @@ export default function Search() {
             </Button>
           </Grid>
           <Grid item>
-              <Typography gutterBottom variant="h6" component="div">
-                {sampledata.Headline.Text}
-              </Typography>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                {formatData(sampledata.Headline.EffectiveDate)}
-              </Typography>
+            {status === 'success' && (<Location info={data.Headline}/>)}
           </Grid>
-          <div>
-              {
-                sampledata.DailyForecasts.map((day, i) => ((
-                  <Grid item key={i} xs={12} md={6} lg={4}>
-                    <Day day={day} />
-                  </Grid>
-                )))
-              }
-          </div>
-          {/* {status === 'loading' && (<div>loading data...</div>)}
-          {status === 'error' && (<div>error fetching data...</div>)}
+        </Grid>
+          {status === 'loading' && (<div>Loading data....</div>)}
+          {status === 'error' && (<div>Error fetching data....</div>)}
           {status === 'success' && (
-          <>
-            <Grid item>
-                <Typography gutterBottom variant="h6" component="div">
-                  {data.Headline.EffectiveDate}
-                </Typography>
-                <Typography gutterBottom variant="subtitle1" component="div">
-                  {data.Headline.EffectiveDate}
-                </Typography>
-            </Grid>
-            <div>
+          <Grid container spacing={2} justifyContent="center" alignItems="start">
                 {
-                  data.DailyForecasts.map((day, i) => ((
-                    <Grid item key={i} xs={12} md={6} lg={4}>
-                      <Day day={day} />
+                  sampledata.DailyForecasts.map((day, i) => ((
+                    <Grid item key={i} xs={12} sm={6} md={2}>
+                      <Day day={day} i={i} />
                     </Grid>
                   )))
                 }
-            </div>
-          </>
-          )} */}
-        </Grid>
+          </Grid>
+          )}
       </Container>
     </>
   )
 }
+
