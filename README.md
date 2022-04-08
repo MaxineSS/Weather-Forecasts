@@ -1,7 +1,7 @@
 # 👋 Welcome to 5 Days Forecasts!
-> Note for Travis </br> 
-> : Currently only `1 Day` and `5 Days` of Daily Forecasts available on AccWeather API.
-><img width="866" alt="Screen Shot 2022-04-07 at 5 05 42 PM" src="https://user-images.githubusercontent.com/64869554/162399167-bf2bf236-8b79-410e-bda6-7f8f8c5d7c35.png">
+> **Note for _Travis_** </br> 
+> Currently only `1 Day` and `5 Days` of Daily Forecasts available on AccWeather API.
+<img width="866" alt="Screen Shot 2022-04-07 at 5 05 42 PM" src="https://user-images.githubusercontent.com/64869554/162399167-bf2bf236-8b79-410e-bda6-7f8f8c5d7c35.png">
 
 > I initially planned to use 10 Day API URL(http://dataservice.accuweather.com/forecasts/v1/daily/10day/{locationkey})
 > and fetch data and use `Array.slice(0, 7)` to get 7 days Forecasts.
