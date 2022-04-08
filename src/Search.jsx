@@ -5,7 +5,7 @@ import { location as locationAtom } from './atoms.js';
 import API_KEY from '../config.js';
 import Day from './Day.jsx';
 import Location from './Location.jsx';
-import sampledata from '../sampleData.js';
+// import sampledata from '../sampleData.js';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -74,7 +74,7 @@ export default function Search() {
           {status === 'success' && (
           <Grid container spacing={2} justifyContent="center" alignItems="start">
                 {
-                  sampledata.DailyForecasts.map((day, i) => ((
+                  data.DailyForecasts.map((day, i) => ((
                     <Grid item key={i} xs={12} sm={6} md={2}>
                       <Day day={day} i={i} />
                     </Grid>
