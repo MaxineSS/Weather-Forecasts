@@ -41,7 +41,7 @@ export default function Search() {
     }
   }
   const { data, status } = useQuery('forecasts', fetchForecast, {
-    enabled: !!locationKey.key
+    enabled: zipcode.length > 4
   })
 
   return (
@@ -58,12 +58,12 @@ export default function Search() {
               sx={{ width: 300 }}
             />
             <span>    </span>
-            <Button
+            {/* <Button
               type="submit"
               variant="contained"
               onClick={fetchForecast}>
               Submit
-            </Button>
+            </Button> */}
           </Grid>
           <Grid item>
             {status === 'success' && (<Location info={data.Headline}/>)}
