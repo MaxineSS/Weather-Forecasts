@@ -19,7 +19,7 @@ https://user-images.githubusercontent.com/64869554/162393212-75824dd3-0f85-4307-
 5. Start typing postal code to see 5 days forecasts!
    
 ## ⛰️ Environment
-Create `.congig.js` and fill in your information.
+Create `.config.js` and fill in your information.
 ```bash
 const API_KEY = 'Your AccWeather API Key';
 ```
